@@ -18,7 +18,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+# DATABASE_URL = os.environ.get('DATABASE_URL')
 # ENVIRONMENT = os.environ.get('ENV')
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +28,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 SECRET_KEY = 'django-insecure-5-=6+2#i#1ozd_g*+kxon&7c!8chr34z%0&mod7%sz+z)hm$a='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -86,9 +86,13 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL, ssl_require=False),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DATABASE_URL'],
+    }
 }
 
+# dj_database_url.config(default=DATABASE_URL, ssl_require=False),
 WHITENOISE_USE_FINDERS = True
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
