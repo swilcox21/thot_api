@@ -4,7 +4,7 @@ from api.models import Reminder
 
 class ReminderAdmin(admin.ModelAdmin):
     readonly_fields = ['id']
-    list_display = ['id','owner','recurring','created_date']
+    list_display = ['id','owner','text','created_date']
     ordering = ['owner','created_date']
 
 
