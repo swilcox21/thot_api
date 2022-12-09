@@ -18,7 +18,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 # ENVIRONMENT = os.environ.get('ENV')
 
 # Quick-start development settings - unsuitable for production
@@ -85,12 +85,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ['DATABASE_URL'],
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DATABASE_URL'],
-    }
+    'default': dj_database_url.config(default=DATABASE_URL, ssl_require=False),
 }
+
 
 # dj_database_url.config(default=DATABASE_URL, ssl_require=False),
 WHITENOISE_USE_FINDERS = True
