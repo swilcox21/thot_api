@@ -55,6 +55,7 @@ class ReminderView(APIView):
             reminders.append(ser_reminder.data)
         return Response(reminders, status=204)
     def delete(self,request):
+        print("DELETE_REQUEST: ", request.data)
         reminders = []
         for r in request.data:
             reminder = get_object_or_404(Reminder.objects.all(), id=r.get('id'))
