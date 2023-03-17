@@ -53,12 +53,12 @@ class ReminderView(APIView):
             if ser_reminder.is_valid(raise_exception=True):
                 ser_reminder.save()
             reminders.append(ser_reminder.data)
-        return Response(reminders, status=204)
+        return Response(reminders, status=status.HTTP_202_ACCEPTED)
     def delete(self,request,reminder_id):
         res = get_object_or_404(Reminder.objects.all(), id=reminder_id)
         reminder = get_object_or_404(Reminder.objects.all(), id=reminder_id)
         reminder.delete()
-        return Response({"message": "reminder: `{}` has been deleted".format(res)},status=204)
+        return Response({"message": "reminder: `{}` has been deleted".format(res)}, status=status.HTTP_202_ACCEPTED)
 
 class ThotView(APIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
@@ -88,14 +88,14 @@ class ThotView(APIView):
             if ser_thot.is_valid(raise_exception=True):
                 ser_thot.save()
             thots.append(ser_thot.data)
-        return Response(thots, status=204)
+        return Response(thots, status=status.HTTP_202_ACCEPTED)
     def delete(self,request):
         thots = []
         for t in request.data:
             thot = get_object_or_404(Thot.objects.all(), id=t.get('id'))
             thots.append(thot)
             thot.delete()
-        return Response({"message": "thots: `{}` has been deleted".format(thots)},status=204)
+        return Response({"message": "thots: `{}` has been deleted".format(thots)}, status=status.HTTP_202_ACCEPTED)
 
 class GroopView(APIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
@@ -125,14 +125,14 @@ class GroopView(APIView):
             if ser_groop.is_valid(raise_exception=True):
                 ser_groop.save()
             groops.append(ser_groop.data)
-        return Response(groops, status=204)
+        return Response(groops.data, status=status.HTTP_202_ACCEPTED)
     def delete(self,request):
         groops = []
         for f in request.data:
             groop = get_object_or_404(Groop.objects.all(), id=f.get('id'))
             groops.append(groop)
             groop.delete()
-        return Response({"message": "`{}` have been deleted".format(groops)},status=204)
+        return Response({"message": "`{}` have been deleted".format(groops)},status=status.HTTP_202_ACCEPTED)
     # def put(self,request,groop_id):
     #     groop = get_object_or_404(Groop.objects.all(), id=groop_id)
     #     ser_groop = GroopSerializer(instance=groop, data=request.data, partial=True)
