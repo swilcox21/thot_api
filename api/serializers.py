@@ -9,7 +9,7 @@ class ReminderSerializer(serializers.ModelSerializer):
     text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:
         model = Reminder
-        fields = ['id','text','owner','due_date','recurring','completed','order']
+        fields = ['text','id','owner','due_date','recurring','completed','order']
     def update(self, instance, validated_data):
         instance.due_date = validated_data.get('due_date', instance.due_date)
         instance.order = validated_data.get('order', instance.order)
@@ -28,11 +28,11 @@ class _GroopSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:                                 
         model = Groop
-        fields = ['id','name','owner']
+        fields = ['name','id','owner']
 class _ThotSerializer(serializers.ModelSerializer): 
     class Meta:                                 
         model = Thot
-        fields = ['id','text','dashboard','order']
+        fields = ['text','id','dashboard','order']
 
 class ThotSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -40,7 +40,7 @@ class ThotSerializer(serializers.ModelSerializer):
     text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:
         model = Thot
-        fields = ['id','text','created_date','dashboard','order','groop']   
+        fields = ['text','id','created_date','dashboard','order','groop']   
     def update(self, instance, validated_data):
         instance.groop = validated_data.get('groop', instance.groop)
         instance.text = validated_data.get('text', instance.text)
@@ -59,7 +59,7 @@ class GroopSerializer(serializers.ModelSerializer):
     thots = _ThotSerializer(many=True, required=False)
     class Meta:
         model = Groop
-        fields = ['id','name','owner','home','hidden','order','image','thots']
+        fields = ['name','id','owner','home','hidden','order','image','thots']
     def update(self, instance, validated_data):
         instance.home = validated_data.get('home', instance.home)
         instance.hidden = validated_data.get('hidden', instance.hidden)
@@ -77,4 +77,4 @@ class UserSerializer(serializers.ModelSerializer):
     groops = GroopSerializer(many=True, required=False)
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'reminders', 'groops']
+        fields = ['username', 'id',  'email', 'reminders', 'groops']
