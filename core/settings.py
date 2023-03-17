@@ -92,12 +92,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ['DATABASE_URL'],
-#     }
-# }
 
 DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL, ssl_require=False),
