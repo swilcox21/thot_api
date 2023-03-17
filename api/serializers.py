@@ -9,7 +9,7 @@ class ReminderSerializer(serializers.ModelSerializer):
     text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:
         model = Reminder
-        fields = ['id','owner','due_date','order','recurring','completed','text']
+        fields = ['id','text','owner','due_date','recurring','completed','order']
     def update(self, instance, validated_data):
         instance.due_date = validated_data.get('due_date', instance.due_date)
         instance.order = validated_data.get('order', instance.order)
@@ -28,11 +28,11 @@ class _GroopSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:                                 
         model = Groop
-        fields = ['id','owner','name']
+        fields = ['id','name','owner']
 class _ThotSerializer(serializers.ModelSerializer): 
     class Meta:                                 
         model = Thot
-        fields = ['id','order','dashboard','text']
+        fields = ['id','text','dashboard','order']
 
 class ThotSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -40,7 +40,7 @@ class ThotSerializer(serializers.ModelSerializer):
     text = serializers.CharField(required=False, allow_blank=True, max_length=5000)
     class Meta:
         model = Thot
-        fields = ['id','created_date','order','dashboard','text','groop']   
+        fields = ['id','text','created_date','dashboard','order','groop']   
     def update(self, instance, validated_data):
         instance.groop = validated_data.get('groop', instance.groop)
         instance.text = validated_data.get('text', instance.text)
@@ -59,7 +59,7 @@ class GroopSerializer(serializers.ModelSerializer):
     thots = _ThotSerializer(many=True, required=False)
     class Meta:
         model = Groop
-        fields = ['id','owner','created_date','order','home','hidden','image','name','thots']
+        fields = ['id','name','owner','home','hidden','order','image','thots']
     def update(self, instance, validated_data):
         instance.home = validated_data.get('home', instance.home)
         instance.hidden = validated_data.get('hidden', instance.hidden)
