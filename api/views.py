@@ -58,7 +58,7 @@ class ReminderView(APIView):
         res = get_object_or_404(Reminder.objects.all(), id=reminder_id)
         reminder = get_object_or_404(Reminder.objects.all(), id=reminder_id)
         reminder.delete()
-        return Response(res,status=204)
+        return Response({"message": "reminder: `{}` has been deleted".format(res)},status=204)
 
 class ThotView(APIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
